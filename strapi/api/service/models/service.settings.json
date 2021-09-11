@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "services",
+  "info": {
+    "name": "Service",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "unitPrice": {
+      "type": "float"
+    },
+    "duration": {
+      "type": "enumeration",
+      "enum": [
+        "d10s",
+        "d15s",
+        "d30s",
+        "d45s",
+        "d60s",
+        "d60sp"
+      ]
+    }
+  }
+}

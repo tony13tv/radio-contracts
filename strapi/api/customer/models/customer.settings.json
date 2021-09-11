@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "customers",
+  "info": {
+    "name": "Customer",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "businessName": {
+      "type": "string"
+    },
+    "img": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "address": {
+      "type": "text"
+    },
+    "taxRegistrationNumber": {
+      "type": "string",
+      "regex": "\\d{4}-\\d{4}-\\d{6}"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Agency",
+        "Brand"
+      ]
+    },
+    "contacts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "customers.contact"
+    },
+    "notes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "customers.notes"
+    },
+    "quotations": {
+      "collection": "quotation",
+      "via": "customer"
+    },
+    "contracts": {
+      "collection": "contract",
+      "via": "customer"
+    },
+    "brands": {
+      "collection": "customer"
+    }
+  }
+}

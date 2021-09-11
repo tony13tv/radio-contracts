@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_contract_clauses",
+  "info": {
+    "name": "Clause",
+    "icon": "sitemap",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "clause": {
+      "model": "clause"
+    }
+  }
+}

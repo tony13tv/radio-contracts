@@ -1,0 +1,27 @@
+{
+  "translation": {
+    "Agency": "Agencia",
+    "Agencies": "Agencias",
+    "Back to Home": "Regresar al Inicio",
+    "But we're here to bring you back to safety": "Pero estamos aquí para regresarte a lo seguro",
+    "Contract": "Contrato",
+    "Contracts": "Contratos",
+    "Customer": {
+      "SINGULAR": "Cliente",
+      "CREATED_AT": "Fecha de Creación",
+      "UPDATED_AT": "Fecha de Actualización"
+    },
+    "Customers": "Clientes",
+    "Groups": "Grupos",
+    "List": "Listado",
+    "Model": {
+      "Customer": {
+        "NAME": "Nombre"
+      }
+    },
+    "Oops. Looks like the page you're looking for no longer exists": "Ups. Parece que la página que estás buscando ya no existe",
+    "Templates": "Plantillas",
+    "Security": "Seguridad",
+    "Users": "Usuarios"
+  }
+}

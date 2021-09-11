@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clauses",
+  "info": {
+    "name": "Clause",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    }
+  }
+}

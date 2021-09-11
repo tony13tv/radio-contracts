@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_customers_contacts",
+  "info": {
+    "name": "contact",
+    "icon": "address-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Main",
+        "Administrative"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quotations",
+  "info": {
+    "name": "Quotation",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "unique": true,
+      "required": true,
+      "regex": "\\d{4}-\\d{4}-\\d{2}-\\d{4}"
+    },
+    "customer": {
+      "via": "quotations",
+      "model": "customer"
+    },
+    "validUntil": {
+      "type": "date"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "quotations.item"
+    },
+    "contract": {
+      "via": "quotation",
+      "model": "contract"
+    }
+  }
+}

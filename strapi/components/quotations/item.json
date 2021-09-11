@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_quotations_items",
+  "info": {
+    "name": "item",
+    "icon": "barcode"
+  },
+  "options": {},
+  "attributes": {
+    "service": {
+      "model": "service"
+    },
+    "amountPerDay": {
+      "type": "integer"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "float"
+    }
+  }
+}

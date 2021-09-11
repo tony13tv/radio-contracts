@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contracts",
+  "info": {
+    "name": "Contract",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "customer": {
+      "via": "contracts",
+      "model": "customer"
+    },
+    "quotation": {
+      "model": "quotation",
+      "via": "contract"
+    },
+    "clauses": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contracts.clause"
+    }
+  }
+}

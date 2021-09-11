@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "paginations",
+  "info": {
+    "name": "Pagination"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "itemsPerPage": {
+      "type": "integer"
+    }
+  }
+}
