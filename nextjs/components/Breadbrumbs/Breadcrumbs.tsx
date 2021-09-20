@@ -38,6 +38,7 @@ function Breadcrumbs({ url }) {
 
     let routeArr = url.split('/');
     let title = routeArr[routeArr.length - 1];
+    if(!title) return null;
     let breadcrumbTitle = title[0].toUpperCase() + title.slice(1)
 
     return (

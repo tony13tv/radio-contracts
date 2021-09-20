@@ -5,14 +5,12 @@ interface AuthState {
     me: any,
     isFetching: boolean,
     isAuthenticated: boolean,
-    message: { type: string, content: string },
 }
 
 const initialState: AuthState = {
     me: { username: "Anónimo" },
     isFetching: false,
-    isAuthenticated: typeof window !== 'undefined' && !!localStorage.getItem("authenticated"),
-    message: null
+    isAuthenticated: false,
 }
 
 export default createReducer<AuthState>(initialState, {
@@ -20,25 +18,21 @@ export default createReducer<AuthState>(initialState, {
         ...state,
         isFetching: true,
         isAuthenticated: false,
-        message: null
     }),
     [login.fulfilled.type]: (state, action) => ({
         ...state,
         isFetching: false,
-        isAuthenticated: true,
-        message: action.payload
+        isAuthenticated: action.payload,
     }),
     [login.rejected.type]: (state, action) => ({
         ...state,
         isFetching: false,
-        isAuthenticated: false,
-        message: action.payload
+        isAuthenticated: action.payload
     }),
-    [logout.fulfilled.type]: (state, action) => ({
+    [logout.type]: (state, action) => ({
         ...state,
         isFetching: false,
-        isAuthenticated: false,
-        message: action.payload
+        isAuthenticated: action.payload
     }),
     [setCurrentUser.type]: (state, action) => ({
         ...state,

@@ -5,6 +5,7 @@ import cloudIcon from "../../assets/tables/cloudIcon.svg";
 import printerIcon from "../../assets/tables/printerIcon.svg";
 import optionsIcon from "../../assets/tables/optionsIcon.svg";
 import funnelIcon from "../../assets/tables/funnelIcon.svg";
+import { BiPlusCircle } from "react-icons/bi";
 import { Label, Table } from "reactstrap";
 import Pagination from "react-paginate";
 import Widget from "../Widget/Widget";
@@ -14,14 +15,15 @@ import moment from "moment";
 import Toast from "react-toastify";
 import Loading from "../loading";
 
-export default function DynamicList({
-                                        title,
-                                        headers,
-                                        page = 0,
-                                        data = undefined,
-                                        query = undefined,
-                                        onPageChange
-                                    }) {
+export default function DynamicList(props) {
+    const {
+        title,
+        headers,
+        page = 0,
+        data = undefined,
+        query = undefined,
+        onPageChange, onAddClick
+    } = props
     const [ state, setState ] = useState({})
     const [ t, i18n ] = useTranslation()
     const [ getItems, {
@@ -46,6 +48,7 @@ export default function DynamicList({
         <div className={s.tableTitle}>
             <div className="headline-2">{title}</div>
             <div className="d-flex">
+                <a href="/#"><BiPlusCircle size={24} onClick={onAddClick}/></a>
                 <a href="/#"><img src={searchIcon.src} alt="Search"/></a>
                 <a href="/#"><img className="d-none d-sm-block" src={cloudIcon.src} alt="Cloud"/></a>
                 <a href="/#"><img src={printerIcon.src} alt="Printer"/></a>

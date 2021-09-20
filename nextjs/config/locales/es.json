@@ -8,6 +8,7 @@
     "Contracts": "Contratos",
     "Customer": {
       "SINGULAR": "Cliente",
+      "NAME": "Nombre",
       "CREATED_AT": "Fecha de Creación",
       "UPDATED_AT": "Fecha de Actualización"
     },

@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { LOGIN } from "../components/queries";
+import { toast } from "react-toastify";
 
 interface DoLoginParams {
     username: string,
@@ -20,17 +21,16 @@ export const login = createAsyncThunk('entrance/login', async ({ username, passw
     try {
         const { data } = await api.mutate({ mutation: LOGIN, variables: { username, password } })
         dispatch(setCurrentUser(data.login.user))
-        return { type: 'success', content: `Bienvenido ${data.login.user.username},` }
+        toast.success(`Bienvenido ${data.login.user.username}`)
+        return true
     } catch ({ graphQLErrors, clientErrors, networkError, message }) {
-        console.log(graphQLErrors, clientErrors, networkError)
-        return rejectWithValue({
-            type: 'error',
-            content: graphQLErrors[0].extensions.exception.data.message[0].messages[0].message
-        })
+        toast.error(graphQLErrors[0].extensions.exception.data.message[0].messages[0].message)
+        return rejectWithValue(false)
     }
 })
 export const setCurrentUser = createAction<any>('entrance/login/current')
 
-export const logout = createAsyncThunk('account/logout', async (a: void, { dispatch }) => {
-    return { type: 'success', content: 'Ha salido del sistema.' }
+export const logout = createAction('account/logout', () => {
+    toast.info('Sesión cerrada exitosamente.')
+    return { payload: false }
 })
