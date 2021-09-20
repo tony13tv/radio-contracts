@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../../reducers";
+import { gql, useQuery } from "@apollo/client";
 
-import Header from "../Header/Header";
+const Header = dynamic(() => import("../Header/Header"), { ssr: false });
 import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
-
-import s from "./Layout.module.scss";
-import { useAppDispatch, useAppSelector } from "../../reducers";
 import Breadcrumbs from "../Breadbrumbs/Breadcrumbs";
-import { useRouter } from "next/router";
-import { gql, useQuery } from "@apollo/client";
+
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import s from "./Layout.module.scss";
 
 function Layout({ children }) {
 
