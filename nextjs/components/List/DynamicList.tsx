@@ -16,15 +16,8 @@ import Toast from "react-toastify";
 import Loading from "../loading";
 
 export default function DynamicList(props) {
-    const {
-        title,
-        headers,
-        page = 0,
-        data = undefined,
-        query = undefined,
-        onPageChange, onAddClick
-    } = props
-    const [ state, setState ] = useState({})
+    const { title, headers, query = undefined, onAddClick } = props
+    const [ page, setPage ] = useState(0)
     const [ t, i18n ] = useTranslation()
     const [ getItems, {
         loading,
@@ -37,18 +30,33 @@ export default function DynamicList(props) {
     } ] = query
 
     useEffect(() => {
-        if (!called) getItems()
+        if (!called) getItems({
+            variables: {
+                start: page * 10,
+                limit: 10
+            }
+        })
     }, [])
 
     useEffect(() => {
-        if (called) refetch().catch(() => Toast.toast("Refetched"))
+        console.log(called, page, +new Date())
+        if (called) getItems({
+            variables: {
+                start: page * 10,
+                limit: 10
+            }
+        })
     }, [ page ])
+
+    const onPageChange = ({ selected }) => {
+        setPage(selected)
+    }
 
     return <Widget>
         <div className={s.tableTitle}>
             <div className="headline-2">{title}</div>
             <div className="d-flex">
-                <a href="/#"><BiPlusCircle size={24} onClick={onAddClick}/></a>
+                <BiPlusCircle size={24} onClick={onAddClick}/>
                 <a href="/#"><img src={searchIcon.src} alt="Search"/></a>
                 <a href="/#"><img className="d-none d-sm-block" src={cloudIcon.src} alt="Cloud"/></a>
                 <a href="/#"><img src={printerIcon.src} alt="Printer"/></a>
@@ -94,7 +102,7 @@ export default function DynamicList(props) {
                         <td>{moment(item.created_at).calendar()}</td>
                         <td>{moment(item.updated_at).calendar()}</td>
                     </tr>
-                ))}
+                )) || <tr><td colSpan={4} className="text-center">No hay elementos para mostrar</td></tr>}
                 </tbody>
             </Table>
             {pageCount > 0 && <Pagination

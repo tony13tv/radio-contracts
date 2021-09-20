@@ -19,10 +19,9 @@ function Login() {
     const router = useRouter()
     const dispatch = useAppDispatch()
 
-    const { isFetching, isAuthenticated, errorMessage } = useAppSelector(store => ({
+    const { isFetching, isAuthenticated } = useAppSelector(store => ({
         isFetching: store.auth.isFetching,
-        isAuthenticated: store.auth.isAuthenticated,
-        errorMessage: store.auth.errorMessage,
+        isAuthenticated: store.auth.isAuthenticated
     }))
 
     const [ state, setState ] = useState({
@@ -64,11 +63,10 @@ function Login() {
                                     <p className="mb-0">RDS RADIO</p>
                                 </div>
                             </div>
-                            <div className="auth-info my-2">
-                                {errorMessage ||
-                                <p>This is a real app with Node.js backend - use <b>"admin@flatlogic.com /
-                                    password"</b> to login!</p>}
-                            </div>
+                            {/*<div className="auth-info my-2">*/}
+                            {/*    <p>This is a real app with Node.js backend - use <b>"admin@flatlogic.com /*/}
+                            {/*        password"</b> to login!</p>*/}
+                            {/*</div>*/}
                             <form onSubmit={doLogin}>
                                 <FormGroup className="my-3">
                                     <FormText>Email</FormText>

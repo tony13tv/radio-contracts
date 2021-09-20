@@ -4,7 +4,12 @@
     "Agencies": "Agencias",
     "Back to Home": "Regresar al Inicio",
     "But we're here to bring you back to safety": "Pero estamos aquí para regresarte a lo seguro",
-    "Contract": "Contrato",
+    "Contract": {
+      "SINGULAR": "Contrato",
+      "NUMBER": "Número",
+      "CREATED_AT": "Fecha de Creación",
+      "UPDATED_AT": "Fecha de Actualización"
+    },
     "Contracts": "Contratos",
     "Customer": {
       "SINGULAR": "Cliente",

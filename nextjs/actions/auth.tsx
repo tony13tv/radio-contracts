@@ -20,6 +20,7 @@ export const login = createAsyncThunk('entrance/login', async ({ username, passw
     let api: any = extra;
     try {
         const { data } = await api.mutate({ mutation: LOGIN, variables: { username, password } })
+        localStorage.setItem('jwt', data.login.jwt)
         dispatch(setCurrentUser(data.login.user))
         toast.success(`Bienvenido ${data.login.user.username}`)
         return true
