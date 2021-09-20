@@ -1,22 +1,22 @@
 import React from "react";
 // import ApexCharts from "react-apexcharts";
 import dynamic from "next/dynamic";
-import {ApexOptions} from "apexcharts";
+import { ApexOptions } from "apexcharts";
 
-const ApexCharts = dynamic(() => import('react-apexcharts'), {ssr: false})
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const series = [{
+const series = [ {
     name: 'Social Media',
     type: 'column',
-    data: [650, 850, 550, 750, 850, 700, 1050, 1100]
+    data: [ 650, 850, 550, 750, 850, 700, 1050, 1100 ]
 }, {
     name: 'Website Blog',
     type: 'area',
-    data: [800, 900, 1050, 1100, 1000, 850, 1050, 1150]
-}];
+    data: [ 800, 900, 1050, 1100, 1000, 850, 1050, 1150 ]
+} ];
 
 const chartSettings: ApexOptions = {
-    colors: ['#4D53E0', '#C7D0D9'],
+    colors: [ '#4D53E0', '#C7D0D9' ],
     chart: {
         toolbar: {
             show: false,
@@ -26,7 +26,7 @@ const chartSettings: ApexOptions = {
         stacked: false,
     },
     stroke: {
-        width: [0, 0],
+        width: [ 0, 0 ],
         curve: 'smooth'
     },
     plotOptions: {
@@ -36,9 +36,9 @@ const chartSettings: ApexOptions = {
     },
     fill: {
         type: "solid",
-        opacity: [1, 0.5],
+        opacity: [ 1, 0.5 ],
     },
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    labels: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug" ],
     markers: {
         size: 0
     },
@@ -53,7 +53,7 @@ const chartSettings: ApexOptions = {
     yaxis: {
         labels: {
             style: {
-                colors: ["#6B859E"],
+                colors: [ "#6B859E" ],
             },
         },
     },

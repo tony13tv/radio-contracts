@@ -1,14 +1,16 @@
-import {ApolloProvider} from "@apollo/client";
-import {client} from "../config/gql";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../config/gql";
 
 import '../styles/app.scss'
-import {Provider} from "react-redux";
-import {useStore} from "../reducers";
+import { Provider } from "react-redux";
+import { useStore } from "../reducers";
 import Layout from "../components/Layout/Layout";
 import "../config/i18n"
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+import React from "react";
 
-function App({Component, pageProps}) {
+function App({ Component, pageProps }) {
     const store = useStore(pageProps.initialReduxState)
     const router = useRouter()
     // if (typeof window !== 'undefined') {
@@ -24,6 +26,7 @@ function App({Component, pageProps}) {
             <Layout>
                 <Component {...pageProps} />
             </Layout>
+            <ToastContainer/>
         </Provider>
     </ApolloProvider>
 }

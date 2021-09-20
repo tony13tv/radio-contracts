@@ -1,11 +1,9 @@
-import React, {useState} from "react";
-import {Redirect} from "react-router-dom";
+import React, { useState } from "react";
 import Link from 'next/link'
-import {Button, Col, Container, FormGroup, FormText, Input, Row,} from "reactstrap";
+import { Button, Col, Container, FormGroup, FormText, Input, Row, } from "reactstrap";
 import Widget from "../components/Widget/Widget";
 import Footer from "../components/Footer/Footer";
-import {login} from "../actions/auth";
-import {useAppDispatch, useAppSelector} from "../reducers";
+import { useAppDispatch, useAppSelector } from "../reducers";
 
 import loginImage from "../assets/loginImage.svg";
 import SofiaLogo from "../components/Icons/SidebarIcons/SofiaLogo";
@@ -14,22 +12,22 @@ import TwitterIcon from "../components/Icons/AuthIcons/TwitterIcon";
 import FacebookIcon from "../components/Icons/AuthIcons/FacebookIcon";
 import GithubIcon from "../components/Icons/AuthIcons/GithubIcon";
 import LinkedinIcon from "../components/Icons/AuthIcons/LinkedinIcon";
-import {useMutation} from "@apollo/client";
-import {LOGIN} from "../components/queries";
+import { login } from "../actions/auth";
+import { useRouter } from "next/router";
 
 function Login() {
+    const router = useRouter()
     const dispatch = useAppDispatch()
-    const [login] = useMutation(LOGIN)
 
-    const {isFetching, isAuthenticated, errorMessage} = useAppSelector(store => ({
+    const { isFetching, isAuthenticated, errorMessage } = useAppSelector(store => ({
         isFetching: store.auth.isFetching,
         isAuthenticated: store.auth.isAuthenticated,
         errorMessage: store.auth.errorMessage,
     }))
 
-    const [state, setState] = useState({
-        email: 'admin@flatlogic.com',
-        password: 'password',
+    const [ state, setState ] = useState({
+        email: 'cris.torres15@gmail.com',
+        password: 'Crisantove13',
     })
 
     // function isAuthenticated(token: string) {
@@ -38,27 +36,19 @@ function Login() {
 
     const doLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        login({variables: {username: state.email, password: state.password}}).then(({data}) => {
-            console.log(data)
-            typeof window !== 'undefined' && localStorage.setItem('jwt', data?.login?.jwt)
-        })
-        // dispatch(login({username: state.email, password: state.password}));
+        dispatch(login({ username: state.email, password: state.password }));
     }
 
     const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, email: event.target.value});
+        setState({ ...state, email: event.target.value });
     }
 
     const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, password: event.target.value});
+        setState({ ...state, password: event.target.value });
     }
 
-    const from = (typeof window !== 'undefined' && window.location.pathname) || '/dashboard'
-
     if (isAuthenticated) {
-        return (
-            <Redirect to={from}/>
-        );
+        router.push('/dashboard', '/dashboard')
     }
 
     return (
@@ -96,7 +86,7 @@ function Login() {
                                            type="password" required name="password" placeholder="Password"/>
                                 </FormGroup>
                                 <div className="bg-widget d-flex justify-content-center">
-                                    <Button className="rounded-pill my-3" type="submit"
+                                    <Button className="rounded-pill my-3" type="submit" disabled={isFetching}
                                             color="secondary-red">Login</Button>
                                 </div>
                                 <p className="dividing-line my-3">&#8195;Or&#8195;</p>
@@ -116,7 +106,7 @@ function Login() {
                     </Col>
                     <Col xs={0} lg={6} className="right-column">
                         <div>
-                            <img {...loginImage}/>
+                            <img src={loginImage.src} alt={"Login"}/>
                         </div>
                     </Col>
                 </Row>

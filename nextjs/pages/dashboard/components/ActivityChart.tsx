@@ -1,23 +1,23 @@
 import React from "react";
 // import ApexCharts from "react-apexcharts";
-import {ApexOptions} from "apexcharts";
+import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 
-const ApexCharts = dynamic(() => import('react-apexcharts'), {ssr: false})
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const series = [{
+const series = [ {
     name: 'Your Activity',
     type: 'column',
-    data: [350, 275, 375, 375, 300, 225, 275]
+    data: [ 350, 275, 375, 375, 300, 225, 275 ]
 }, {
     name: 'Your Goal',
     type: 'line',
-    data: [400, 350, 450, 400, 350, 300, 350]
+    data: [ 400, 350, 450, 400, 350, 300, 350 ]
 
-}];
+} ];
 
 const chartSettings: ApexOptions = {
-    colors: ["#FFCA41", "#43BC13"],
+    colors: [ "#FFCA41", "#43BC13" ],
     chart: {
         height: 350,
         type: 'line',
@@ -27,11 +27,11 @@ const chartSettings: ApexOptions = {
     },
     stroke: {
         curve: "straight",
-        width: [0, 1]
+        width: [ 0, 1 ]
     },
     dataLabels: {
         enabled: true,
-        enabledOnSeries: [1],
+        enabledOnSeries: [ 1 ],
         style: {
             fontSize: '10px',
             fontWeight: 500,
@@ -41,7 +41,7 @@ const chartSettings: ApexOptions = {
             dropShadow: {},
         },
     },
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    labels: [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
     legend: {
         position: "top",
         floating: true,

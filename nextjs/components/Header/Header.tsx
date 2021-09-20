@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {shallowEqual} from "react-redux";
+import React, { useState } from "react";
+import { shallowEqual } from "react-redux";
 
 import {
     Dropdown,
@@ -17,8 +17,8 @@ import {
     NavLink,
 } from "reactstrap";
 
-import {logout} from "../../actions/auth";
-import {closeSidebar, openSidebar} from "../../actions/navigation";
+import { logout } from "../../actions/auth";
+import { closeSidebar, openSidebar } from "../../actions/navigation";
 import MenuIcon from "../Icons/HeaderIcons/MenuIcon";
 import SearchBarIcon from "../Icons/HeaderIcons/SearchBarIcon";
 import BellIcon from "../Icons/HeaderIcons/BellIcon";
@@ -38,8 +38,8 @@ import userImg from "../../assets/user.svg";
 
 import s from "./Header.module.scss";
 import "animate.css";
-import {AppDispatch, RootState, useAppDispatch, useAppSelector} from "../../reducers";
-import {RouteComponentProps} from "react-router-dom";
+import { AppDispatch, RootState, useAppDispatch, useAppSelector } from "../../reducers";
+import { RouteComponentProps } from "react-router-dom";
 
 interface HeaderProps {
     me: { fullName: string },
@@ -58,7 +58,7 @@ interface HeaderState {
 }
 
 function Header() {
-    const [state, setState] = useState({
+    const [ state, setState ] = useState({
         menuOpen: false,
         notificationsOpen: false,
         searchFocused: false
@@ -66,7 +66,7 @@ function Header() {
 
     const dispatch = useAppDispatch()
 
-    const {me, sidebarOpened, sidebarStatic} = useAppSelector((store: RootState) => ({
+    const { me, sidebarOpened, sidebarStatic } = useAppSelector((store: RootState) => ({
         me: store.auth.me,
         sidebarOpened: store.navigation.sidebarOpened,
         sidebarStatic: store.navigation.sidebarStatic,
@@ -99,7 +99,6 @@ function Header() {
             notificationsOpen: !state.notificationsOpen,
         });
     }
-    console.log(JSON.stringify(s), s)
 
     return (
         <Navbar className={`${s.root} d-print-none`}>
@@ -134,37 +133,37 @@ function Header() {
                             <div className={s.count}/>
                         </div>
                     </DropdownToggle>
-                    <DropdownMenu right className="navbar-dropdown notifications-dropdown" style={{width: "340px"}}>
-                        <DropdownItem><img src={basketIcon}
+                    <DropdownMenu right className="navbar-dropdown notifications-dropdown" style={{ width: "340px" }}>
+                        <DropdownItem><img src={basketIcon.src}
                                            alt="Basket Icon"/><span>12 new orders have arrived today</span></DropdownItem>
                         <DropdownItem>
                             <div>
                                 <div className="d-flex flex-row mb-1">
-                                    <img src={mariaImage.blurDataURL} alt="Maria" className={s.mariaImage}/>
+                                    <img src={mariaImage.src} alt="Maria" className={s.mariaImage}/>
                                     <div className="d-flex flex-column">
                                         <p className="body-3">Maria</p>
                                         <p className="label muted">15 min ago</p>
                                     </div>
                                 </div>
-                                <img src={notificationImage.blurDataURL} alt="Notification Icon"
+                                <img src={notificationImage.src} alt="Notification Icon"
                                      className={s.notificationImage}/>
                                 <p className="body-2 muted">It is just a simple image that can define th..</p>
                             </div>
                         </DropdownItem>
-                        <DropdownItem><img src={calendarIcon} alt="Calendar Icon"/><span>1 event has been canceled and ..</span></DropdownItem>
-                        <DropdownItem><img src={envelopeIcon}
+                        <DropdownItem><img src={calendarIcon.src} alt="Calendar Icon"/><span>1 event has been canceled and ..</span></DropdownItem>
+                        <DropdownItem><img src={envelopeIcon.src}
                                            alt="Envelope Icon"/><span>you have 2 new messages</span></DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
                 <Dropdown isOpen={state.notificationsOpen} toggle={toggleNotifications} nav
                           id="basic-nav-dropdown" className="ml-3">
                     <DropdownToggle nav caret className="navbar-dropdown-toggle">
-              <span className={`${s.avatar} rounded-circle float-left mr-2`}>
-                <img src={userImg} alt="User"/>
-              </span>
-                        <span className="small d-none d-sm-block ml-1 mr-2 body-1">{me?.fullName ?? ''}</span>
+                        <span className={`${s.avatar} rounded-circle float-left mr-2`}>
+                            <img src={me.avatar?.src} alt="User"/>
+                        </span>
+                        <span className="small d-none d-sm-block ml-1 mr-2 body-1">{me?.name ?? '...'}</span>
                     </DropdownToggle>
-                    <DropdownMenu className="navbar-dropdown profile-dropdown" style={{width: "194px"}}>
+                    <DropdownMenu className="navbar-dropdown profile-dropdown" style={{ width: "194px" }}>
                         <DropdownItem
                             className={s.dropdownProfileItem}><ProfileIcon/><span>Profile</span></DropdownItem>
                         <DropdownItem
@@ -174,7 +173,7 @@ function Header() {
                         <NavItem>
                             <NavLink onClick={doLogout} href="#">
                                 <button className="btn btn-primary rounded-pill mx-auto logout-btn" type="submit">
-                                    <img src={logoutIcon} alt="Logout"/><span className="ml-1">Logout</span>
+                                    <img src={logoutIcon.src} alt="Logout"/><span className="ml-1">Logout</span>
                                 </button>
                             </NavLink>
                         </NavItem>

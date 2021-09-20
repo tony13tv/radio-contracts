@@ -1,7 +1,7 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {Button} from "reactstrap";
-import {withTranslation, WithTranslation} from "react-i18next"
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
+import { withTranslation, WithTranslation } from "react-i18next"
 import s from "./error.module.scss";
 
 import errorImage from "../../assets/errorImage.svg"
@@ -9,7 +9,7 @@ import FooterIcon from "../../components/Icons/FooterIcon";
 
 class Error extends React.Component<WithTranslation> {
     render() {
-        const {t} = this.props
+        const { t } = this.props
         return (
             <div className={s.pageContainer}>
                 <div className={s.errorContainer}>

@@ -12,7 +12,7 @@ const TaskContainer = (props: TaskContainerProps) => {
         <ul>
             {props.tasks.map((task) => (
                 <li
-                    className={cx(`${s.taskBlock}`, {[s.completed]: task.completed})}
+                    className={cx(`${s.taskBlock}`, { [s.completed]: task.completed })}
                     key={task.id}
                 >
                     <div className={s.taskDescription}>

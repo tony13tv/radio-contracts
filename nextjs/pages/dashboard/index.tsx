@@ -1,15 +1,6 @@
-import React, {useState} from "react";
-import {v4 as uuidv4} from "uuid";
-import {
-    Col,
-    Row,
-    Progress,
-    Button,
-    ButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-} from "reactstrap";
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { Button, ButtonDropdown, Col, DropdownItem, DropdownMenu, DropdownToggle, Progress, Row, } from "reactstrap";
 import Widget from "../../components/Widget/Widget";
 import ApexActivityChart from "./components/ActivityChart";
 
@@ -27,17 +18,21 @@ import user from "../../assets/user.svg";
 import statsPie from "../../assets/dashboard/statsPie.svg";
 
 import s from "./index.page.module.scss";
-import {AppDispatch} from "../../reducers";
+import { useAppSelector } from "../../reducers";
 
 function Dashboard() {
-    const [state, setState] = useState({
+    const [ state, setState ] = useState({
         dropdownOpenOne: false,
         dropdownOpenTwo: false,
         dropdownOpenThree: false,
-        checkboxes: [false, true],
+        checkboxes: [ false, true ],
     })
 
-    const meals = [meal1, meal2, meal3];
+    const { me } = useAppSelector(store => ({
+        me: store.auth.me
+    }))
+
+    const meals = [ meal1, meal2, meal3 ];
 
     const toggleOne = () => {
         setState(state => ({
@@ -230,10 +225,10 @@ function Dashboard() {
                 <Col className="mt-4 mt-lg-0 pl-grid-col" xs={12} lg={4}>
                     <Widget className="widget-p-lg">
                         <div className="d-flex">
-                            <img className={s.image} src={user.src} alt="..."/>
+                            <img className={s.image} src={me.avatar?.src} alt="..."/>
                             <div className={s.userInfo}>
-                                <p className="headline-3">Christina Karey</p>
-                                <p className="body-3 muted">Brasil</p>
+                                <p className="headline-3">{me.name ?? '...'}</p>
+                                <p className="body-3 muted">{me.country?.name ?? '...'}</p>
                             </div>
                         </div>
                         <div className={s.userParams}>
@@ -289,7 +284,7 @@ function Dashboard() {
                                 <Progress color="secondary-cyan" className="progress-xs" value={40}/>
                             </div>
                         </div>
-                        <p className="headline-3">Appointments</p>
+                        <p className="headline-3">Citas</p>
                         <div className={`mt-3 ${s.widgetBlock}`}>
                             <div className={s.widgetBody}>
                                 <div className="d-flex">
@@ -313,34 +308,11 @@ function Dashboard() {
                                 </div>
                             </div>
                         </div>
-                        <div className={`mt-3 ${s.widgetBlock}`}>
-                            <div className={s.widgetBody}>
-                                <div className="d-flex">
-                                    <img className="img-fluid mr-2" src={therapyIcon.src} alt="..."/>
-                                    <div className="d-flex flex-column">
-                                        <p className="body-2">03.11 , 16:00 - 17:30</p>
-                                        <p className="body-3 muted">Therapy</p>
-                                    </div>
-                                </div>
-                                <div className="checkbox checkbox-primary">
-                                    <input
-                                        id="checkbox1"
-                                        type="checkbox"
-                                        className="styled"
-                                        checked={state.checkboxes[1]}
-                                        onChange={(event) =>
-                                            changeCheck(event, "checkboxes", 1)
-                                        }
-                                    />
-                                    <label htmlFor="checkbox1"/>
-                                </div>
-                            </div>
-                        </div>
                         <a className={`btn-secondary-red ${s.statsBtn}`} href="#top" role="button">
                             <img className={s.pieImg} src={statsPie.src} alt="..."/>
                             <div>
-                                <p className="headline-2">STATISTIC</p>
-                                <p className="body-3">Download your activity</p>
+                                <p className="headline-2">ESTADÍSTICAS</p>
+                                <p className="body-3">Descarga tu actividad</p>
                             </div>
                         </a>
                     </Widget>

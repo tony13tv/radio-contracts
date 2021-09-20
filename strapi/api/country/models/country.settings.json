@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "countries",
+  "info": {
+    "name": "Country"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "iso3166_1": {
+      "type": "string"
+    },
+    "flag": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "users": {
+      "via": "country",
+      "plugin": "users-permissions",
+      "collection": "user"
+    }
+  }
+}

@@ -1,13 +1,11 @@
-import {configureStore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import auth from "./auth"
 import navigation from "./navigation"
 // import register from "./register"
 import global from "./global"
-import {client} from "../config/gql";
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
-import {useMemo} from "react";
-import {applyMiddleware, createStore} from "redux";
-import {composeWithDevTools} from "redux-devtools-extension";
+import { client } from "../config/gql";
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { useMemo } from "react";
 
 export const rootReducer = {
     auth, navigation, global
@@ -36,7 +34,7 @@ export const saveState = (state: RootState) => {
 
 export const store = configureStore({
     reducer: rootReducer, preloadedState: loadState(),
-    middleware: getDefaultMiddleware => getDefaultMiddleware({thunk: {extraArgument: client}})
+    middleware: getDefaultMiddleware => getDefaultMiddleware({ thunk: { extraArgument: client } })
 })
 
 store.subscribe(() => saveState(store.getState()))
@@ -48,5 +46,5 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export function useStore(initialState) {
-    return useMemo(() => store, [initialState])
+    return useMemo(() => store, [ initialState ])
 }

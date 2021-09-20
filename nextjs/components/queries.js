@@ -1,16 +1,22 @@
 import {gql} from "@apollo/client";
 
 export const LOGIN = gql`
-    mutation Login($username: String!, $password: String!){
+    mutation ($username: String!, $password: String!){
         login(input: { identifier: $username, password: $password }) {
+            user {
+                email username name
+                avatar {src: url formats}
+                country {name}
+                customers {id name}
+            }
             jwt
         }
     }
 `
 
 export const GET_AGENCIES = gql`
-    query($start: Int! $search: String = null){
-        count: customersConnection(start: $start limit: 10 where: {type: "Agency", _q: $search}) {
+    query($start: Int! $pagination: Int = 10 $search: String = null){
+        count: customersConnection(start: $start limit: $pagination where: {type: "Agency", _q: $search}) {
             aggregate {
                 count
             }
@@ -20,18 +26,15 @@ export const GET_AGENCIES = gql`
                 count
             }
         }
-        items: customers(start: $start, limit: 10, where: {type: "Agency", _q: $search}) {
-            id name img {src: url} created_at
-        }
-        pagination {
-            itemsPerPage
+        items: customers(start: $start, limit: $pagination, where: {type: "Agency", _q: $search}) {
+            id name avatar {src: url} created_at
         }
     }
 `
 
 export const GET_BRANDS = gql`
-    query GetBrands($start: Int!){
-        count: customersConnection(start: $start limit: 10 where: {type: "Brand"}) {
+    query ($start: Int! $pagination: Int = 10 $search: String = null){
+        count: customersConnection(start: $start limit: $pagination where: {type: "Brand", _q: $search}) {
             aggregate {
                 count
             }
@@ -41,27 +44,26 @@ export const GET_BRANDS = gql`
                 count
             }
         }
-        items: customers(start: $start limit: 10 where: {type: "Brand"}) {
-            id name img {src: url} created_at
-        }
-        pagination {
-            itemsPerPage
+        items: customers(start: $start limit: $pagination where: {type: "Brand", _q: $search}) {
+            id name avatar {src: url} created_at
         }
     }
 `
 
 export const GET_CUSTOMERS = gql`
-    query GetCustomers($start: Int!){
-        customersConnection {
+    query ($start: Int! $pagination: Int = 10 $search: String = null){
+        count: customersConnection(start: $start limit: $pagination where: {_q: $search}) {
             aggregate {
-                count totalCount
+                count
             }
         }
-        items: customers(start: $start, limit: 10) {
-            id name img {src: url} created_at
+        total: customersConnection {
+            aggregate {
+                count
+            }
         }
-        pagination {
-            itemsPerPage
+        items: customers(start: $start limit: $pagination where: {_q: $search}) {
+            id name avatar {src: url} created_at
         }
     }
 `

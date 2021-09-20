@@ -60,15 +60,15 @@ function Sidebar() {
         {
             header: 'Contratos', link: '#',
             childrenLinks: [
-                {header: 'Contratos', link: '/contracts'},
+                {header: 'Contratos', link: '/contracts/contracts'},
                 {header: 'Plantillas', link: '/contracts/templates'},
             ]
         },
         {
             header: 'Clientes', link: '#',
             childrenLinks: [
-                {header: 'Agencias', link: '/customer/agencies'},
-                {header: 'Marcas', link: '/customer/brands'},
+                {header: 'Agencias', link: '/customers/agencies'},
+                {header: 'Marcas', link: '/customers/brands'},
             ]
         },
         {

@@ -1,18 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import s from "../../pages/tables/tables.page.module.scss";
 import searchIcon from "../../assets/tables/searchIcon.svg";
 import cloudIcon from "../../assets/tables/cloudIcon.svg";
 import printerIcon from "../../assets/tables/printerIcon.svg";
 import optionsIcon from "../../assets/tables/optionsIcon.svg";
 import funnelIcon from "../../assets/tables/funnelIcon.svg";
-import {Label} from "reactstrap";
+import { Label, Table } from "reactstrap";
 import Pagination from "react-paginate";
 import Widget from "../Widget/Widget";
-import {Table} from 'reactstrap'
-import {v4 as uuidv4} from 'uuid'
-import {useTranslation} from "react-i18next";
+import { v4 as uuidv4 } from 'uuid'
+import { useTranslation } from "react-i18next";
 import moment from "moment";
-import {useLazyQuery} from "@apollo/client";
 import Toast from "react-toastify";
 import Loading from "../loading";
 
@@ -24,17 +22,17 @@ export default function DynamicList({
                                         query = undefined,
                                         onPageChange
                                     }) {
-    const [state, setState] = useState({})
-    const [t, i18n] = useTranslation()
-    const [getItems, {
+    const [ state, setState ] = useState({})
+    const [ t, i18n ] = useTranslation()
+    const [ getItems, {
         loading,
-        data: {items, total: {aggregate: {count: pageCount}}} = {
+        data: { items, total: { aggregate: { count: pageCount } } } = {
             items: null,
-            total: {aggregate: {count: null}}
+            total: { aggregate: { count: null } }
         },
         called,
         refetch
-    }] = query
+    } ] = query
 
     useEffect(() => {
         if (!called) getItems()
@@ -42,7 +40,7 @@ export default function DynamicList({
 
     useEffect(() => {
         if (called) refetch().catch(() => Toast.toast("Refetched"))
-    }, [page])
+    }, [ page ])
 
     return <Widget>
         <div className={s.tableTitle}>
@@ -87,7 +85,7 @@ export default function DynamicList({
                             </div>
                         </td>
                         <td className="d-flex align-items-center">
-                            <img className={s.image} src={item.img?.src} alt="User"/>
+                            <img className={s.image} src={item.avatar?.src} alt="User"/>
                             <span className="ml-3">{item.name}</span>
                         </td>
                         <td>{moment(item.created_at).calendar()}</td>

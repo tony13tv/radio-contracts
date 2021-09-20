@@ -33,7 +33,7 @@ i18n
         interpolation: {
             escapeValue: false // react already safes from xss
         },
-        returnedObjectHandler: (key, value, options)  => {
+        returnedObjectHandler: (key, value, options) => {
             return value['SINGULAR']
         }
     });

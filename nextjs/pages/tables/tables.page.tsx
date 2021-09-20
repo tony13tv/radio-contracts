@@ -1,19 +1,19 @@
-import React, {useState} from "react";
-import {v4 as uuidv4} from "uuid";
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
+    Badge,
+    ButtonDropdown,
     Col,
-    Row,
-    Table,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Label,
     Pagination,
     PaginationItem,
     PaginationLink,
-    ButtonDropdown,
-    Dropdown,
-    DropdownMenu,
-    DropdownToggle,
-    DropdownItem,
-    Label,
-    Badge,
+    Row,
+    Table,
 } from "reactstrap";
 import Widget from "../../components/Widget/Widget";
 import TaskContainer from "./components/TaskContainer/TaskContainer";
@@ -21,7 +21,6 @@ import TaskContainer from "./components/TaskContainer/TaskContainer";
 // import BootstrapTable from "react-bootstrap-table-next";
 // import paginationFactory from 'react-bootstrap-table2-paginator';
 // import MUIDataTable from "mui-datatables";
-
 import cloudIcon from "../../assets/tables/cloudIcon.svg";
 import funnelIcon from "../../assets/tables/funnelIcon.svg";
 import optionsIcon from "../../assets/tables/optionsIcon.svg";
@@ -34,14 +33,14 @@ import mock from "./mock";
 
 const TablesPage = function () {
 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [firstTable] = useState(mock.firstTable);
-    const [secondTable] = useState(mock.secondTable);
-    const [transactions, setTransactions] = useState(mock.transactionsWidget);
-    const [tasks, setTasks] = useState(mock.tasksWidget);
-    const [firstTableCurrentPage, setFirstTableCurrentPage] = useState(0);
-    const [secondTableCurrentPage, setSecondTableCurrentPage] = useState(0);
-    const [tableDropdownOpen, setTableMenuOpen] = useState(false);
+    const [ dropdownOpen, setDropdownOpen ] = useState(false);
+    const [ firstTable ] = useState(mock.firstTable);
+    const [ secondTable ] = useState(mock.secondTable);
+    const [ transactions, setTransactions ] = useState(mock.transactionsWidget);
+    const [ tasks, setTasks ] = useState(mock.tasksWidget);
+    const [ firstTableCurrentPage, setFirstTableCurrentPage ] = useState(0);
+    const [ secondTableCurrentPage, setSecondTableCurrentPage ] = useState(0);
+    const [ tableDropdownOpen, setTableMenuOpen ] = useState(false);
 
     const pageSize = 4;
     const firstTablePagesCount = Math.ceil(firstTable.length / pageSize);
@@ -164,7 +163,7 @@ const TablesPage = function () {
                                                 href="#top"
                                             />
                                         </PaginationItem>
-                                        {[...Array(firstTablePagesCount)].map((page, i) =>
+                                        {[ ...Array(firstTablePagesCount) ].map((page, i) =>
                                             <PaginationItem active={i === firstTableCurrentPage} key={i}>
                                                 <PaginationLink onClick={e => setFirstTablePage(e, i)} href="#top">
                                                     {i + 1}
@@ -270,7 +269,7 @@ const TablesPage = function () {
                                                 href="#top"
                                             />
                                         </PaginationItem>
-                                        {[...Array(secondTablePagesCount)].map((page, i) =>
+                                        {[ ...Array(secondTablePagesCount) ].map((page, i) =>
                                             <PaginationItem active={i === secondTableCurrentPage} key={i}>
                                                 <PaginationLink onClick={e => setSecondTablePage(e, i)} href="#top">
                                                     {i + 1}

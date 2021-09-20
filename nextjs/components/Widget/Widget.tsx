@@ -2,7 +2,7 @@ import React from 'react';
 
 import s from './Widget.module.scss';
 import classNames from 'classnames';
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 interface WidgetProps {
     title: React.ReactNode,

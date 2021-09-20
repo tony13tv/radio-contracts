@@ -1,9 +1,5 @@
-import {
-    REGISTER_FAILURE,
-    REGISTER_REQUEST,
-    REGISTER_SUCCESS
-} from "../actions/register.js";
-import {AnyAction} from "redux";
+import { REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "../actions/register.js";
+import { AnyAction } from "redux";
 
 export default function register(state = {
     isFetching: false,

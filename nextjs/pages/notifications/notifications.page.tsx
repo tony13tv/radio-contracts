@@ -1,12 +1,8 @@
-import React, {useState} from "react";
-import {toast} from "react-toastify";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import classnames from "classnames";
-import {
-    Col,
-    Row,
-    Button,
-} from "reactstrap";
+import { Button, Col, Row, } from "reactstrap";
 import Widget from "../../components/Widget/Widget";
 import Code from "../../components/Code/Code";
 import Notification from "../../components/Notification/Notification";
@@ -23,11 +19,11 @@ const positions = [
     toast.POSITION.BOTTOM_RIGHT
 ];
 
-const notificationTypes = ["info", "success", "warning", "error"]
+const notificationTypes = [ "info", "success", "warning", "error" ]
 
 const NotificationsPage = function () {
 
-    const [notificationPosition, setNotificationPosition] = useState(2)
+    const [ notificationPosition, setNotificationPosition ] = useState(2)
 
     function changeNotificationPosition(positionId: number) {
         setNotificationPosition(positionId)
@@ -57,30 +53,30 @@ const NotificationsPage = function () {
                             <div className={s.layoutButtonsRow}>
                                 <button
                                     onClick={() => changeNotificationPosition(0)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 0})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 0 })}
                                 />
                                 <button
                                     onClick={() => changeNotificationPosition(1)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 1})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 1 })}
                                 />
                                 <button
                                     onClick={() => changeNotificationPosition(2)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 2})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 2 })}
                                 />
                             </div>
                             <div className={s.layoutText}>Click any position</div>
                             <div className={s.layoutButtonsRow}>
                                 <button
                                     onClick={() => changeNotificationPosition(3)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 3})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 3 })}
                                 />
                                 <button
                                     onClick={() => changeNotificationPosition(4)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 4})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 4 })}
                                 />
                                 <button
                                     onClick={() => changeNotificationPosition(5)}
-                                    className={classnames(s.layoutButton, {[s.layoutButtonActive]: notificationPosition === 5})}
+                                    className={classnames(s.layoutButton, { [s.layoutButtonActive]: notificationPosition === 5 })}
                                 />
                             </div>
                         </div>

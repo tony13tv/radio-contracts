@@ -1,5 +1,5 @@
-import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
-import {toast} from "react-toastify";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { LOGIN } from "../components/queries";
 
 interface DoLoginParams {
     username: string,
@@ -11,32 +11,26 @@ export const receiveLogin = createAction('receiveLogin')
 export const session = createAsyncThunk('entrance/session', () => {
 })
 
-export const login = createAsyncThunk('entrance/login', async ({username, password}: DoLoginParams, {
+export const login = createAsyncThunk('entrance/login', async ({ username, password }: DoLoginParams, {
     extra,
     dispatch,
     rejectWithValue
 }) => {
     let api: any = extra;
     try {
-        const {data} = await api.put('/v1/entrance/login', {emailAddress: username, password: password})
-        toast.success(`Bienvenido ${data}`)
-        dispatch(setCurrentUser(data))
-        return "OK"
-    } catch ({response: {data, headers, status}}) {
-        if (status >= 400) {
-            return rejectWithValue(headers['x-exit-description'])
-        }
-        return rejectWithValue(data)
+        const { data } = await api.mutate({ mutation: LOGIN, variables: { username, password } })
+        dispatch(setCurrentUser(data.login.user))
+        return { type: 'success', content: `Bienvenido ${data.login.user.username},` }
+    } catch ({ graphQLErrors, clientErrors, networkError, message }) {
+        console.log(graphQLErrors, clientErrors, networkError)
+        return rejectWithValue({
+            type: 'error',
+            content: graphQLErrors[0].extensions.exception.data.message[0].messages[0].message
+        })
     }
 })
 export const setCurrentUser = createAction<any>('entrance/login/current')
 
-export const loggedIn = createAction('entrance/login/fulfilled')
-
-export const logout = createAsyncThunk('account/logout', async (a: void, {rejectWithValue, extra}) => {
-    let api: any = extra
-    const {data} = await api.get('/v1/account/logout')
-    return data
+export const logout = createAsyncThunk('account/logout', async (a: void, { dispatch }) => {
+    return { type: 'success', content: 'Ha salido del sistema.' }
 })
-
-export const loggedOut = createAction<string>('account/logout/fulfilled')

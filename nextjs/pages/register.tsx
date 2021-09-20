@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {Redirect} from "react-router-dom";
-import {Button, Col, Container, FormGroup, FormText, Input, Row,} from "reactstrap";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Button, Col, Container, FormGroup, FormText, Input, Row, } from "reactstrap";
 import Widget from "../components/Widget/Widget";
 import Footer from "../components/Footer/Footer";
 
@@ -11,30 +11,30 @@ import TwitterIcon from "../components/Icons/AuthIcons/TwitterIcon";
 import FacebookIcon from "../components/Icons/AuthIcons/FacebookIcon";
 import GithubIcon from "../components/Icons/AuthIcons/GithubIcon";
 import LinkedinIcon from "../components/Icons/AuthIcons/LinkedinIcon";
-import {registerUser} from "../actions/register";
-import {useAppDispatch, useAppSelector} from "../reducers";
-import {useRouter} from "next/router";
+import { registerUser } from "../actions/register";
+import { useAppDispatch, useAppSelector } from "../reducers";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 function Register() {
     const dispatch = useAppDispatch()
-    const {isFetching, isAuthenticated, errorMessage} = useAppSelector(state => ({
+    const { isFetching, isAuthenticated, errorMessage } = useAppSelector(state => ({
         isFetching: state.auth.isFetching,
         isAuthenticated: state.auth.isAuthenticated,
         errorMessage: state.auth.errorMessage,
     }))
-    const [state, setState] = useState({
+    const [ state, setState ] = useState({
         email: '',
         password: '',
     })
     const router = useRouter()
 
     const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState(state => ({...state, email: event.target.value}));
+        setState(state => ({ ...state, email: event.target.value }));
     }
 
     const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState(state => ({...state, password: event.target.value}));
+        setState(state => ({ ...state, password: event.target.value }));
     }
 
     const doRegister = (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +48,7 @@ function Register() {
         }));
     }
 
-    const {from} = router.query || {from: {pathname: '/app'}};
+    const { from } = router.query || { from: { pathname: '/app' } };
 
     if (isAuthenticated) {
         return (

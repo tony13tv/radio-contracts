@@ -1,9 +1,5 @@
-import {
-    OPEN_SIDEBAR,
-    CLOSE_SIDEBAR,
-    CHANGE_ACTIVE_SIDEBAR_ITEM,
-} from "../actions/navigation";
-import {AnyAction} from "redux";
+import { CHANGE_ACTIVE_SIDEBAR_ITEM, CLOSE_SIDEBAR, OPEN_SIDEBAR, } from "../actions/navigation";
+import { AnyAction } from "redux";
 
 const initialState = {
     sidebarOpened: false,
