@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TablesIcon extends React.Component<{ className: string }> {
+class TablesIcon extends React.Component<{ className?: string }> {
 
     render() {
         return (

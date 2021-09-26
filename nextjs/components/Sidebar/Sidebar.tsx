@@ -4,7 +4,7 @@ import LinksGroup, {ChildrenLink} from "./LinksGroup/LinksGroup";
 import {changeActiveSidebarItem} from "../../actions/navigation";
 import {logout} from "../../actions/auth";
 import HomeIcon from "../Icons/SidebarIcons/HomeIcon";
-import TypographyIcon from "../Icons/SidebarIcons/TypographyIcon";
+import TablesIcon from "../Icons/SidebarIcons/TablesIcon";
 import RDSRadioLogo from "../Icons/SidebarIcons/RDSRadioLogo.png";
 import {useAppDispatch, useAppSelector} from "../../reducers";
 import {v4 as uuidv4} from "uuid";
@@ -62,6 +62,13 @@ function Sidebar() {
             childrenLinks: [
                 {header: 'Contratos', link: '/contracts/contracts'},
                 {header: 'Plantillas', link: '/contracts/templates'},
+                {header: 'Cláusulas', link: '/contracts/clauses'},
+            ]
+        },
+        {
+            header: 'Cotizaciones', link: '#',
+            childrenLinks: [
+                {header: 'Cotizaciones', link: '/quotations/quotations'},
             ]
         },
         {
@@ -103,7 +110,7 @@ function Sidebar() {
                         activeItem={activeItem}
                         header={link.header}
                         isHeader
-                        iconName={<TypographyIcon/>}
+                        iconName={<TablesIcon/>}
                         link={link.link}
                         index="typography"
                     />)}

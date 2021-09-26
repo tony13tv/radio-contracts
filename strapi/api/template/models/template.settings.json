@@ -16,6 +16,10 @@
     },
     "clauses": {
       "collection": "clause"
+    },
+    "contracts": {
+      "via": "template",
+      "collection": "contract"
     }
   }
 }

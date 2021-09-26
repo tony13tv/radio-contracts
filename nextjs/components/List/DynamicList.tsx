@@ -14,11 +14,20 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import Toast from "react-toastify";
 import Loading from "../loading";
+import { gql, useQuery } from "@apollo/client";
+import { useAppDispatch } from "../../reducers";
 
 export default function DynamicList(props) {
-    const { title, headers, query = undefined, onAddClick } = props
+    const [ pagination, setPagination ] = useState(10)
+    const { data } = useQuery(gql`query { pagination { itemsPerPage } }`)
+    useEffect(() => {
+        if (data && data.hasOwnProperty('pagination'))
+            setPagination(pagination)
+    }, [ data ])
+
+    const { title, headers, query = undefined, onAddClick, rowRenderer } = props
     const [ page, setPage ] = useState(0)
-    const [ t, i18n ] = useTranslation()
+    const [ t ] = useTranslation()
     const [ getItems, {
         loading,
         data: { items, total: { aggregate: { count: pageCount } } } = {
@@ -39,11 +48,10 @@ export default function DynamicList(props) {
     }, [])
 
     useEffect(() => {
-        console.log(called, page, +new Date())
         if (called) getItems({
             variables: {
-                start: page * 10,
-                limit: 10
+                start: page * pagination,
+                limit: pagination
             }
         })
     }, [ page ])
@@ -80,29 +88,28 @@ export default function DynamicList(props) {
                         </div>
                     </th>
                     {headers.map(header => <th key={uuidv4()} className="w-25">{t(header)}</th>)}
+                    <th>{t('CREATED_AT')}</th>
+                    <th>{t('UPDATED_AT')}</th>
                 </tr>
                 </thead>
                 <tbody>
-                {loading && <Loading/> || items?.map?.(item => (
-                    <tr key={uuidv4()}>
-                        <td>
-                            <div className="checkbox checkbox-primary">
-                                <input
-                                    id={item.id}
-                                    className="styled"
-                                    type="checkbox"
-                                />
-                                <Label for={item.id}/>
-                            </div>
-                        </td>
-                        <td className="d-flex align-items-center">
-                            <img className={s.image} src={item.avatar?.src} alt="User"/>
-                            <span className="ml-3">{item.name}</span>
-                        </td>
-                        <td>{moment(item.created_at).calendar()}</td>
-                        <td>{moment(item.updated_at).calendar()}</td>
-                    </tr>
-                )) || <tr><td colSpan={4} className="text-center">No hay elementos para mostrar</td></tr>}
+                {loading && <Loading/> || items?.map?.(item => <tr key={uuidv4()}>
+                    <td>
+                        <div className="checkbox checkbox-primary">
+                            <input
+                                id={item.id}
+                                className="styled"
+                                type="checkbox"
+                            />
+                            <Label for={item.id}/>
+                        </div>
+                    </td>
+                    {rowRenderer(item)}
+                    <td>{moment(item.created_at).calendar()}</td>
+                    <td>{moment(item.updated_at).calendar()}</td>
+                </tr>) || <tr>
+                    <td colSpan={4} className="text-center">No hay elementos para mostrar</td>
+                </tr>}
                 </tbody>
             </Table>
             {pageCount > 0 && <Pagination
@@ -111,7 +118,7 @@ export default function DynamicList(props) {
                 containerClassName="pagination pagination-borderless"
                 pageClassName="page-item"
                 initialPage={page}
-                pageCount={pageCount / 10}
+                pageCount={pageCount / pagination}
                 onPageChange={onPageChange}
                 pageRangeDisplayed={5}
                 marginPagesDisplayed={2}/>}

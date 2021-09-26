@@ -21,8 +21,6 @@ function Layout({ children }) {
         isAuthenticated: store.auth.isAuthenticated,
     }))
 
-    const { data } = useQuery(gql`query { pagination { itemsPerPage } }`)
-
     useEffect(function () {
         if (router.pathname !== '/login' && !isAuthenticated) {
             router.push('/login', '/login')
@@ -30,11 +28,6 @@ function Layout({ children }) {
             router.push('/dashboard', '/dashboard')
         }
     }, [])
-
-    useEffect(() => {
-        if (data && data.hasOwnProperty('pagination'))
-            dispatch({ type: 'SET_PAGINATION', payload: data.pagination })
-    }, [ data ])
 
     if ([ 'Login', 'Register' ].includes(children.type.name))
         return children

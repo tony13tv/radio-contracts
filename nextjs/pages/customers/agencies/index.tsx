@@ -9,7 +9,10 @@ function Agencies() {
 
     return typeof window !== 'undefined' && <Suspense fallback={<Loading/>}>
         <DynamicList title={"Agencies"} query={query}
-                     headers={[ 'Customer.NAME', 'Customer.CREATED_AT', 'Customer.UPDATED_AT' ]}/>
+                     headers={[ 'Customer.NAME' ]}
+                     rowRenderer={item => ([
+                         <td>{item.name}</td>
+                     ])}/>
     </Suspense>
 }
 

@@ -1,17 +1,17 @@
 import React, { Suspense, useRef } from "react";
-import Loading from "../../../components/loading";
-import DynamicList from "../../../components/List/DynamicList";
+import Loading from "../../components/loading";
+import DynamicList from "../../components/List/DynamicList";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { CREATE_CONTRACT, GET_CONTRACTS, GET_CUSTOMERS, GET_TEMPLATES } from "../../../components/queries";
+import { CREATE_CONTRACT, GET_CONTRACTS, GET_CUSTOMERS, GET_TEMPLATES } from "../../components/queries";
 import { useTranslation } from "react-i18next";
-import useInput from "../../../hooks/useInput";
+import useInput from "../../hooks/useInput";
 import moment from "moment";
 import { toast } from "react-toastify";
-import ModalForm from "../../../components/ModalForm";
+import ModalForm from "../../components/ModalForm";
 import { Col, Input, Row } from "reactstrap";
-import SelectQuery from "../../../components/SelectQuery";
+import SelectQuery from "../../components/SelectQuery";
 
-function Contracts() {
+function Quotations() {
     const [ t ] = useTranslation()
     const query = useLazyQuery(GET_CONTRACTS)
     const templatesQuery = useLazyQuery(GET_TEMPLATES, { variables: { start: 0, pagination: 10 } })
@@ -89,4 +89,4 @@ function Contracts() {
     </Suspense>
 }
 
-export default Contracts
+export default Quotations

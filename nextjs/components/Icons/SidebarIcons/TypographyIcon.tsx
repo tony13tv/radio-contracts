@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TypographyIcon extends React.Component {
+class TypographyIcon extends React.Component<{ className?: string }> {
 
     render() {
         return (

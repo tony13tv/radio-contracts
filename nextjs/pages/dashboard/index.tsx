@@ -19,6 +19,9 @@ import statsPie from "../../assets/dashboard/statsPie.svg";
 
 import s from "./index.page.module.scss";
 import { useAppSelector } from "../../reducers";
+import { gql, useQuery } from "@apollo/client";
+import moment from "moment";
+import { BsChatQuote } from "react-icons/bs";
 
 function Dashboard() {
     const [ state, setState ] = useState({
@@ -31,6 +34,30 @@ function Dashboard() {
     const { me } = useAppSelector(store => ({
         me: store.auth.me
     }))
+
+    const { loading, error, data } = useQuery(gql`query {
+        agencies: customersConnection(where: {type: "Agency"}) {
+            aggregate {
+                count
+            }
+        }
+        brands: customersConnection(where: {type: "Brand"}) {
+            aggregate {
+                count
+            }
+        }
+        contracts: contractsConnection {
+            aggregate {
+                count
+            }
+        }
+        quotations: quotationsConnection(where: {_publicationState: "preview"}) {
+            values {number customer {name} published_at}
+            aggregate {
+                count
+            }
+        }
+    }`)
 
     const meals = [ meal1, meal2, meal3 ];
 
@@ -70,8 +97,67 @@ function Dashboard() {
         <div>
             <Row>
                 <Col className="pr-grid-col" xs={12} lg={8}>
+                    {error && <p>Un error ocurrió obteniendo los indicadores</p>}
+                    {!error && (loading || <Row className="gutter mb-4">
+                        <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
+                            <Widget className="widget-p-sm">
+                                <div className={s.smallWidget}>
+                                    <div className="d-flex">
+                                        <img className="py-1 mr-2 img-fluid" src={heartRed.src} alt="..."/>
+                                        <div className="d-flex flex-column">
+                                            <h2 className="headline-3">{data.agencies.aggregate.count}</h2>
+                                            <p className="body-2"><span className="body-3 muted">Agencias</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Widget>
+                        </Col>
+                        <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
+                            <Widget className="widget-p-sm">
+                                <div className={s.smallWidget}>
+                                    <div className="d-flex">
+                                        <img className="py-1 mr-2 img-fluid" src={heartYellow.src} alt="..."/>
+                                        <div className="d-flex flex-column">
+                                            <p className="headline-3">{data.brands.aggregate.count}</p>
+                                            <p className="body-2"><span className="body-3 muted">Marcas</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Widget>
+                        </Col>
+                        <Col xs={6} sm={6} xl={3}>
+                            <Widget className="widget-p-sm">
+                                <div className={s.smallWidget}>
+                                    <div className="d-flex">
+                                        <img className="py-1 mr-2 img-fluid" src={heartTeal.src} alt="..."/>
+                                        <div className="d-flex flex-column">
+                                            <p className="headline-3">{data.contracts.aggregate.count}</p>
+                                            <p className="body-2"><span className="body-3 muted">Contratos</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Widget>
+                        </Col>
+                        <Col xs={6} sm={6} xl={3}>
+                            <Widget className="widget-p-sm">
+                                <div className={s.smallWidget}>
+                                    <div className="d-flex">
+                                        <img className="py-1 mr-2 img-fluid" src={heartViolet.src} alt="..."/>
+                                        <div className="d-flex flex-column">
+                                            <p className="headline-3">{data.quotations.aggregate.count}</p>
+                                            <p className="body-2"><span className="body-3 muted">Cotizaciones</span></p>
+                                        </div>
+                                    </div>
+                                    {/*<div>*/}
+                                    {/*    <Progress color="violet" className={`progress-xs ${s.mutedViolet}`}*/}
+                                    {/*              value="75"/>*/}
+                                    {/*</div>*/}
+                                </div>
+                            </Widget>
+                        </Col>
+                    </Row>)}
                     <Row className="gutter mb-4">
-                        <Col className="mb-4 mb-md-0" xs={12} md={6}>
+                        <Col className="mb-4" xs={12}>
                             <Widget className="">
                                 <div className="d-flex justify-content-between widget-p-md">
                                     <div className="headline-3 d-flex align-items-center">Your activity</div>
@@ -92,14 +178,15 @@ function Dashboard() {
                                 <ApexActivityChart className="pb-4"/>
                             </Widget>
                         </Col>
-                        <Col xs={12} md={6}>
+                        <Col xs={12}>
                             <Widget className="widget-p-md">
                                 <div className="d-flex justify-content-between">
-                                    <div className="headline-3 d-flex align-items-center">Your meals</div>
-                                    <ButtonDropdown
+                                    <div className="headline-3 d-flex align-items-center">
+                                        Cotizaciones <span className="body-3 muted">(Borrador)</span>
+                                    </div>
+                                    {/*<ButtonDropdown
                                         isOpen={state.dropdownOpenTwo} toggle={toggleTwo}
-                                        className=""
-                                    >
+                                        className="">
                                         <DropdownToggle caret>
                                             &nbsp; Weekly &nbsp;
                                         </DropdownToggle>
@@ -108,24 +195,24 @@ function Dashboard() {
                                             <DropdownItem>Weekly</DropdownItem>
                                             <DropdownItem>Monthly</DropdownItem>
                                         </DropdownMenu>
-                                    </ButtonDropdown>
+                                    </ButtonDropdown>*/}
                                 </div>
-                                {meals.map((meal) =>
+                                {!error && (loading || data.quotations.values.filter(quotation => quotation.published_at === null).map((meal) =>
                                     <div key={uuidv4()} className={`mt-4 ${s.widgetBlock}`}>
                                         <div className={s.widgetBody}>
                                             <div className="d-flex">
-                                                <img className="img-fluid mr-2" src={meal.src} alt="..."/>
+                                                <BsChatQuote className="img-fluid mr-2" size={24}/>
                                                 <div className="d-flex flex-column">
-                                                    <p className="body-2">Salmon salad</p>
-                                                    <p className="body-3 muted">300 g</p>
+                                                    <p className="body-2">{meal.number}</p>
+                                                    <p className="body-3 muted">{meal.customer?.name || '...'}</p>
                                                 </div>
                                             </div>
                                             <div className="body-3 muted">
-                                                175 cal
+                                                {moment(meal.created_at).calendar()}
                                             </div>
                                         </div>
                                     </div>
-                                )}
+                                ))}
                             </Widget>
                         </Col>
                     </Row>
@@ -145,77 +232,6 @@ function Dashboard() {
                                     </div>
                                     <div className="d-flex justify-content-center col-12 col-xl-6">
                                         <img className="p-1 img-fluid" src={upgradeImage.src} alt="..."/>
-                                    </div>
-                                </div>
-                            </Widget>
-                        </Col>
-                    </Row>
-                    <Row className="gutter">
-                        {/*ОТРЕФАКТОРИТЬ И СОКРАТИТЬ КОД !!!!!!!!!!!*/}
-                        <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
-                            <Widget className="widget-p-sm">
-                                <div className={s.smallWidget}>
-                                    <div className="d-flex mb-4">
-                                        <img className="py-1 mr-2 img-fluid" src={heartRed.src} alt="..."/>
-                                        <div className="d-flex flex-column">
-                                            <p className="headline-3">Text</p>
-                                            <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Progress color="secondary-red" className={`progress-xs ${s.mutedPink}`}
-                                                  value="75"/>
-                                    </div>
-                                </div>
-                            </Widget>
-                        </Col>
-                        <Col className="mb-4 mb-xl-0" xs={6} sm={6} xl={3}>
-                            <Widget className="widget-p-sm">
-                                <div className={s.smallWidget}>
-                                    <div className="d-flex mb-4">
-                                        <img className="py-1 mr-2 img-fluid" src={heartYellow.src} alt="..."/>
-                                        <div className="d-flex flex-column">
-                                            <p className="headline-3">Text</p>
-                                            <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Progress color="secondary-yellow"
-                                                  className={`progress-xs ${s.mutedYellow}`} value="75"/>
-                                    </div>
-                                </div>
-                            </Widget>
-                        </Col>
-                        <Col xs={6} sm={6} xl={3}>
-                            <Widget className="widget-p-sm">
-                                <div className={s.smallWidget}>
-                                    <div className="d-flex mb-4">
-                                        <img className="py-1 mr-2 img-fluid" src={heartTeal.src} alt="..."/>
-                                        <div className="d-flex flex-column">
-                                            <p className="headline-3">Text</p>
-                                            <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Progress color="secondary-cyan" className={`progress-xs ${s.mutedTeal}`}
-                                                  value="75"/>
-                                    </div>
-                                </div>
-                            </Widget>
-                        </Col>
-                        <Col xs={6} sm={6} xl={3}>
-                            <Widget className="widget-p-sm">
-                                <div className={s.smallWidget}>
-                                    <div className="d-flex mb-4">
-                                        <img className="py-1 mr-2 img-fluid" src={heartViolet.src} alt="..."/>
-                                        <div className="d-flex flex-column">
-                                            <p className="headline-3">Text</p>
-                                            <p className="body-2">Num<span className="body-3 muted">/ ber</span></p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Progress color="violet" className={`progress-xs ${s.mutedViolet}`}
-                                                  value="75"/>
                                     </div>
                                 </div>
                             </Widget>
